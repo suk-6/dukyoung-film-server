@@ -33,7 +33,7 @@ class generateImage:
         yOffset = (canvas.height - qr.height - 50)
         canvas.paste(qr, (xOffset, yOffset))
 
-        xOffset = 80
+        xOffset = 50
         yOffset = (canvas.height - 80)
         pos = (xOffset, yOffset)
         canvas = self.drawText(canvas, pos)
