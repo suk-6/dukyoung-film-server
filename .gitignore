@@ -1,0 +1,4 @@
+.env
+test/
+images.sqlite
+result.png
