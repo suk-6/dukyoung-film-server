@@ -6,6 +6,25 @@
 		<title>Image</title>
 	</head>
 	<body>
-		<img src="data:image/jpg;base64,{{ image }}" />
+		<h1>덕영필름</h1>
+		<a
+			href="data:image/png;base64,{{ image }}"
+			download="dyfilm.png"
+			style="
+				display: block;
+				margin: 10px auto;
+				padding: 10px 20px;
+				background-color: #555;
+				color: #fff;
+				text-decoration: none;
+				border-radius: 5px;
+			"
+			>이미지 다운로드</a
+		>
+		<p>(아이폰에서는 사진을 꾹 눌러 저장하세요)</p>
+		<img
+			src="data:image/jpg;base64,{{ image }}"
+			style="max-width: 100%; height: auto"
+		/>
 	</body>
 </html>
