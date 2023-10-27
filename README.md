@@ -2,4 +2,4 @@
 
 ## 폰트
 
--   [Pretendard Light](https://cactus.tistory.com/306)
+-   [Pretendard](https://cactus.tistory.com/306)
