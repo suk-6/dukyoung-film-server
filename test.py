@@ -1,7 +1,9 @@
 import requests
 import base64
+import json
 
 url = 'http://localhost:10000/api/image'
+# url = 'https://film.wsuk.dev/api/image'
 
 data = {
     "images": []
@@ -14,4 +16,8 @@ for i in range(len(images)):
 
 data['images'] = images
 
-requests.post(url, json=data)
+req = requests.post(url, json=data)
+
+req = json.loads(req.text)
+
+print(req["id"])

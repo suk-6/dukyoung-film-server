@@ -38,7 +38,7 @@ def image():
 
     insertImage(id, time, image)
 
-    return jsonify({"image": image})
+    return jsonify({"id": id, "image": image})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000)
