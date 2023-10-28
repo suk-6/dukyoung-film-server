@@ -15,9 +15,13 @@ for i in range(len(images)):
     images[i] = base64.b64encode(open(f"test/{images[i]}", "rb").read()).decode("utf-8")
 
 data['images'] = images
+data['frame'] = 0
 
 req = requests.post(url, json=data)
 
 req = json.loads(req.text)
 
 print(req["id"])
+
+# with open(f"test/{req['id']}.png", "wb") as f:
+#     f.write(base64.b64decode(req['printImage']))

@@ -4,7 +4,7 @@ from flask_cors import CORS
 from db import insertImage, selectImage
 from datetime import datetime
 import random
-from image import generateImage
+from image import generateImage, printImage, imageToBase64
 from dotenv import load_dotenv
 
 app = Flask(__name__)
@@ -32,13 +32,16 @@ def image():
 
     id = f"{datetime.timestamp(now)}.{random.randint(0, 1000000)}"
     time = now.strftime("%Y-%m-%d %H:%M")
-
     print(id, time)
-    image = generateImage(id, time, data['images'], renderURL).make()
+
+    frame = data['frame']
+    images = data['images']
+    image = generateImage(id, time, images, frame, renderURL).make()
+    image2 = imageToBase64(printImage(image))
 
     insertImage(id, time, image)
 
-    return jsonify({"id": id, "image": image})
+    return jsonify({"id": id, "image": image, "printImage": image2})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000)

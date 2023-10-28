@@ -6,26 +6,26 @@ from io import BytesIO
 import qrcode
 
 class generateImage:
-    def __init__(self, id, time, images, renderURL):
+    def __init__(self, id, time, images, frame, renderURL):
         self.id = id
         self.time = time
         self.images = images
         self.renderURL = renderURL
-        self.frame = Image.open("frame.png")
+        self.frame = Image.open(f"./frames/frame{frame}.png")
 
     def make(self):
         for i in range(len(self.images)):
             self.images[i] = Image.open(BytesIO(base64.b64decode(self.images[i])))
-            self.images[i] = self.images[i].resize((1095, 734))
+            self.images[i] = self.images[i].resize((1100, 700))
 
-        canvas = Image.new("RGB", self.frame.size)
+        canvas = Image.new("RGB", (1200, 3552))
         canvas.paste(self.frame, (0, 0))
 
-        yOffset = 52
+        yOffset = 100
         for img in self.images:
             xOffset = (canvas.width - img.width) // 2
             canvas.paste(img, (xOffset, yOffset))
-            yOffset += (img.height + 50)
+            yOffset += (img.height + 30)
 
         qr = self.makeQR()
 
@@ -73,6 +73,17 @@ def imageToBase64(img):
     buffered.seek(0)
 
     return base64.b64encode(buffered.getvalue()).decode()
+
+def base64ToImage(base64Image):
+    return Image.open(BytesIO(base64.b64decode(base64Image)))
+
+def printImage(img):
+    img = base64ToImage(img)
+    canvas = Image.new("RGB", (img.size[0] * 2, img.size[1]))
+    canvas.paste(img, (0, 0))
+    canvas.paste(img, (img.size[0], 0))
+
+    return canvas
 
 if __name__ == '__main__':
     images = ["1.png", "2.png", "3.png", "4.png"]
