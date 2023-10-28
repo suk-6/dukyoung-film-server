@@ -14,3 +14,6 @@ def insertImage(id, time, image):
 
 def selectImage(id):
     return c.execute("SELECT * FROM images WHERE id=?", (id,)).fetchone()
+
+def getImageAll():
+    return c.execute("SELECT * FROM images")
