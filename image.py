@@ -16,12 +16,12 @@ class generateImage:
     def make(self):
         for i in range(len(self.images)):
             self.images[i] = Image.open(BytesIO(base64.b64decode(self.images[i])))
-            self.images[i] = self.images[i].resize((1100, 700))
+            self.images[i] = self.images[i].resize((1000, 650))
 
         canvas = Image.new("RGB", (1200, 3600))
         canvas.paste(self.frame, (0, 0))
 
-        yOffset = 100
+        yOffset = 200
         for img in self.images:
             xOffset = (canvas.width - img.width) // 2
             canvas.paste(img, (xOffset, yOffset))
@@ -29,12 +29,12 @@ class generateImage:
 
         qr = self.makeQR()
 
-        xOffset = (canvas.width - qr.width - 50)
-        yOffset = (canvas.height - qr.height - 50)
+        xOffset = (canvas.width - qr.width - 100)
+        yOffset = (canvas.height - qr.height - 130)
         canvas.paste(qr, (xOffset, yOffset))
 
-        xOffset = 50
-        yOffset = (canvas.height - 90)
+        xOffset = 100
+        yOffset = (canvas.height - 180)
         pos = (xOffset, yOffset)
         canvas = self.drawText(canvas, pos)
 
