@@ -16,9 +16,9 @@ class generateImage:
     def make(self):
         for i in range(len(self.images)):
             self.images[i] = Image.open(BytesIO(base64.b64decode(self.images[i])))
-            self.images[i] = self.images[i].resize((1100, 700))
+            self.images[i] = self.images[i].resize((1050, 650))
 
-        canvas = Image.new("RGB", (1200, 3552))
+        canvas = Image.new("RGB", (1150, 3352))
         canvas.paste(self.frame, (0, 0))
 
         yOffset = 100

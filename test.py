@@ -23,5 +23,5 @@ req = json.loads(req.text)
 
 print(req["id"])
 
-# with open(f"test/{req['id']}.png", "wb") as f:
-#     f.write(base64.b64decode(req['printImage']))
+with open(f"test/{req['id']}.png", "wb") as f:
+    f.write(base64.b64decode(req['printImage']))
