@@ -16,9 +16,9 @@ class generateImage:
     def make(self):
         for i in range(len(self.images)):
             self.images[i] = Image.open(BytesIO(base64.b64decode(self.images[i])))
-            self.images[i] = self.images[i].resize((1050, 650))
+            self.images[i] = self.images[i].resize((1100, 700))
 
-        canvas = Image.new("RGB", (1150, 3352))
+        canvas = Image.new("RGB", (1200, 3600))
         canvas.paste(self.frame, (0, 0))
 
         yOffset = 100
@@ -34,7 +34,7 @@ class generateImage:
         canvas.paste(qr, (xOffset, yOffset))
 
         xOffset = 50
-        yOffset = (canvas.height - 80)
+        yOffset = (canvas.height - 90)
         pos = (xOffset, yOffset)
         canvas = self.drawText(canvas, pos)
 
@@ -54,14 +54,14 @@ class generateImage:
         qr.make(fit=True)
 
         qr = qr.make_image(fill_color="black", back_color="white")
-        qr = qr.resize((100, 100))
+        qr = qr.resize((150, 150))
 
         return qr
     
     def drawText(self, canvas, pos):
         draw = ImageDraw.Draw(canvas)
 
-        font = ImageFont.truetype("font.otf", 30)
+        font = ImageFont.truetype("font.otf", 40)
 
         draw.text(pos, self.time, (255, 255, 255), font=font)
 
