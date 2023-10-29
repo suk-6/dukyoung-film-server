@@ -30,11 +30,11 @@ class generateImage:
         qr = self.makeQR()
 
         xOffset = (canvas.width - qr.width - 100)
-        yOffset = (canvas.height - qr.height - 130)
+        yOffset = (canvas.height - qr.height - 150)
         canvas.paste(qr, (xOffset, yOffset))
 
         xOffset = 100
-        yOffset = (canvas.height - 180)
+        yOffset = (canvas.height - 200)
         pos = (xOffset, yOffset)
         canvas = self.drawText(canvas, pos)
 
@@ -84,6 +84,12 @@ def printImage(img):
     canvas.paste(img, (img.size[0], 0))
 
     return canvas
+
+def centerCrop(img):
+    img = base64ToImage(img)
+    img = img.crop((50, 100, 1150, 3500))
+
+    return img
 
 if __name__ == '__main__':
     images = ["1.png", "2.png", "3.png", "4.png"]

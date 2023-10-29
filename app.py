@@ -4,7 +4,7 @@ from flask_cors import CORS
 from db import *
 from datetime import datetime
 import random
-from image import generateImage, printImage, imageToBase64
+from image import *
 from dotenv import load_dotenv
 
 app = Flask(__name__)
@@ -37,7 +37,9 @@ def image():
     frame = data['frame']
     images = data['images']
     image = generateImage(id, time, images, frame, renderURL).make()
+
     image2 = imageToBase64(printImage(image))
+    image = imageToBase64(centerCrop(image))
 
     insertImage(id, time, image)
 
