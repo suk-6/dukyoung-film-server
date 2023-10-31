@@ -43,7 +43,7 @@ def image():
 
     insertImage(id, time, image)
 
-    return jsonify({"id": id, "image": image, "printImage": image2})
+    return jsonify({"id": id, "time": time, "image": image, "printImage": image2})
 
 @app.route('/')
 def index():
