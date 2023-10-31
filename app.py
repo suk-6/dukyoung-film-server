@@ -49,7 +49,6 @@ def image():
 def index():
     res = make_response()
     res.set_cookie('pw', '')
-
     return res
 
 @app.route('/admin')
@@ -71,7 +70,9 @@ def admin():
 
         return render_template("admin.html", data=renderData)
     else:
-        return "Not Found", 404
+        res = make_response()
+        res.set_cookie('pw', '')
+        return res
 
 
 if __name__ == '__main__':
