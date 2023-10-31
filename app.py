@@ -45,12 +45,6 @@ def image():
 
     return jsonify({"id": id, "time": time, "image": image, "printImage": image2})
 
-@app.route('/')
-def index():
-    res = make_response()
-    res.set_cookie('pw', '')
-    return res
-
 @app.route('/admin')
 def admin():
     pw = request.cookies.get('pw')
