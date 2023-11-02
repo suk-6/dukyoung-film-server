@@ -16,4 +16,4 @@ def selectImage(id):
     return c.execute("SELECT * FROM images WHERE id=?", (id,)).fetchone()
 
 def getImageAll():
-    return c.execute("SELECT * FROM images")
+    return c.execute("SELECT * FROM images ORDER BY time DESC")
