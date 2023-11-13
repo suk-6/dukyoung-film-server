@@ -14,7 +14,8 @@ load_dotenv()
 
 renderURL = os.getenv("RENDER_URL")
 
-@app.route('/image/<id>', methods=['GET'])
+
+@app.route("/image/<id>", methods=["GET"])
 def renderImage(id):
     data = selectImage(id)
 
@@ -24,7 +25,17 @@ def renderImage(id):
     return render_template("image.html", image=data[2])
 
 
-@app.route('/api/image', methods=['POST'])
+@app.route("/api/printImage/<id>", methods=["GET"])
+def printImageAPI(id):
+    data = selectImage(id)
+
+    if data == None:
+        return "Not Found", 404
+
+    return jsonify({"image": data[2]})
+
+
+@app.route("/api/image", methods=["POST"])
 def image():
     data = request.get_json()
 
@@ -34,8 +45,8 @@ def image():
     time = now.strftime("%Y-%m-%d %H:%M")
     print(id, time)
 
-    frame = data['frame']
-    images = data['images']
+    frame = data["frame"]
+    images = data["images"]
     image = generateImage(id, time, images, frame, renderURL).make()
 
     image2 = imageToBase64(printImage(image))
@@ -45,16 +56,17 @@ def image():
 
     return jsonify({"id": id, "time": time, "image": image, "printImage": image2})
 
-@app.route('/admin')
+
+@app.route("/admin")
 def admin():
-    pw = request.cookies.get('pw')
+    pw = request.cookies.get("pw")
     if pw == os.getenv("PW"):
         cur = getImageAll()
         data = cur.fetchone()
 
         if data is None:
             return "No Image", 404
-        
+
         renderData = ""
 
         while data is not None:
@@ -65,9 +77,9 @@ def admin():
         return render_template("admin.html", data=renderData)
     else:
         res = make_response()
-        res.set_cookie('pw', '')
+        res.set_cookie("pw", "")
         return res
 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000)
