@@ -25,14 +25,14 @@ def renderImage(id):
     return render_template("image.html", image=data[2])
 
 
-@app.route("/api/printImage/<id>", methods=["GET"])
+@app.route("/printImage/<id>", methods=["GET"])
 def printImageAPI(id):
     data = selectImage(id)
 
     if data == None:
         return "Not Found", 404
 
-    return jsonify({"image": data[2]})
+    return render_template("image.html", image=imageToBase64(printImage(data[2])))
 
 
 @app.route("/api/image", methods=["POST"])
