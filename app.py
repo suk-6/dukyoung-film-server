@@ -25,16 +25,6 @@ def renderImage(id):
     return render_template("image.html", image=data[2])
 
 
-@app.route("/printImage/<id>", methods=["GET"])
-def printImageAPI(id):
-    data = selectImage(id)
-
-    if data == None:
-        return "Not Found", 404
-
-    return render_template("image.html", image=imageToBase64(printImage(data[2])))
-
-
 @app.route("/api/image", methods=["POST"])
 def image():
     data = request.get_json()
@@ -49,12 +39,9 @@ def image():
     images = data["images"]
     image = generateImage(id, time, images, frame, renderURL).make()
 
-    image2 = imageToBase64(printImage(image))
-    image = imageToBase64(centerCrop(image))
-
     insertImage(id, time, image)
 
-    return jsonify({"id": id, "time": time, "image": image, "printImage": image2})
+    return jsonify({"id": id, "time": time, "image": image})
 
 
 @app.route("/admin")
