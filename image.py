@@ -29,7 +29,7 @@ class generateImage:
 
         qr = self.makeQR()
         canvas.paste(qr, (850 * 2, 50 * 2))
-        canvas = self.drawText(canvas, (51 * 2, 1426 * 2))
+        canvas = self.drawText(canvas, (51 * 2, 1412 * 2))
 
         base64Image = imageToBase64(canvas)
 
