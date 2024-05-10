@@ -46,22 +46,23 @@ def image():
 
 @app.route("/admin")
 def admin():
-    pw = request.body.get("pw")
-    if pw == os.getenv("PW"):
-        cur = getImageAll()
-        data = cur.fetchone()
-
-        if data is None:
-            return "No Image", 404
-
-        renderData = f"총 {cur.rowcount}개의 이미지<br>"
-
-        while data is not None:
-            renderData += f'<th><a href="{renderURL}/{data[0]}"><img src="data:image/jpg;base64,{data[2]}" alt="{data[1]}"/></a></th>'
-
+    if request.method == "POST":
+        pw = request.body.get("pw")
+        if pw == os.getenv("PW"):
+            cur = getImageAll()
             data = cur.fetchone()
 
-        return render_template("admin.html", data=renderData)
+            if data is None:
+                return "No Image", 404
+
+            renderData = f"총 {cur.rowcount}개의 이미지<br>"
+
+            while data is not None:
+                renderData += f'<th><a href="{renderURL}/{data[0]}"><img src="data:image/jpg;base64,{data[2]}" alt="{data[1]}"/></a></th>'
+
+                data = cur.fetchone()
+
+            return render_template("admin.html", data=renderData)
     else:
         return """
         <form action="/admin" method="post">
