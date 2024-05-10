@@ -44,7 +44,7 @@ def image():
     return jsonify({"id": id, "time": time, "image": image})
 
 
-@app.route("/admin")
+@app.route("/admin", methods=["GET", "POST"])
 def admin():
     if request.method == "POST":
         pw = request.body.get("pw")
@@ -55,7 +55,7 @@ def admin():
             if data is None:
                 return "No Image", 404
 
-            renderData = ""
+            renderData = f"총 {cur.rowcount}개의 이미지<br>"
 
             while data is not None:
                 renderData += f'<th><a href="{renderURL}/{data[0]}"><img src="data:image/jpg;base64,{data[2]}" alt="{data[1]}"/></a></th>'
