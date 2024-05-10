@@ -46,7 +46,7 @@ def image():
 
 @app.route("/admin")
 def admin():
-    pw = request.cookies.get("pw")
+    pw = request.body.get("pw")
     if pw == os.getenv("PW"):
         cur = getImageAll()
         data = cur.fetchone()
@@ -54,7 +54,7 @@ def admin():
         if data is None:
             return "No Image", 404
 
-        renderData = ""
+        renderData = f"총 {cur.rowcount}개의 이미지<br>"
 
         while data is not None:
             renderData += f'<th><a href="{renderURL}/{data[0]}"><img src="data:image/jpg;base64,{data[2]}" alt="{data[1]}"/></a></th>'
@@ -63,9 +63,12 @@ def admin():
 
         return render_template("admin.html", data=renderData)
     else:
-        res = make_response()
-        res.set_cookie("pw", "")
-        return res
+        return """
+        <form action="/admin" method="post">
+            <input type="password" name="pw">
+            <input type="submit">
+        </form>
+        """
 
 
 if __name__ == "__main__":
