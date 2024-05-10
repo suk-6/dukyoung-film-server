@@ -47,7 +47,7 @@ def image():
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
     if request.method == "POST":
-        pw = request.body.get("pw")
+        pw = request.form["pw"]
         if pw == os.getenv("PW"):
             cur = getImageAll()
             data = cur.fetchone()
