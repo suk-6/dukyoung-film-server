@@ -3,3 +3,5 @@ test/
 images.sqlite
 result.png
 extract/
+backup/
+*.zip
